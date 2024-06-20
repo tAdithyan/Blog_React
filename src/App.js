@@ -1,6 +1,8 @@
 import "./App.css";
 import Create from "./Create";
 import HomePage from "./Homepage";
+import Navbar from './Navbar';
+
 import {
   BrowserRouter as Router,
   Route,
@@ -10,12 +12,13 @@ import {
 function App() {
   return (
     <Router>
+      <Navbar/>
       <div>
         <Switch>
           <Route exact  path="/">
             <HomePage />
           </Route>
-          <Route path="/Create">
+          <Route path="/CreateBlog">
             <Create />
           </Route>
         

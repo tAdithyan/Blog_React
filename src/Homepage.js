@@ -1,11 +1,10 @@
-import Navbar from './Navbar';
 import Bloglist from './Bloglist';
 import useFetch from './useFetch'
 const HomePage = () => {
 const {data:blogs,isloading,error} = useFetch("http://localhost:8000/blogs")
   return ( 
     <div >
-       <Navbar/>
+     
       <div className='content'>
       <h1>Homepage</h1>
    
