@@ -1,36 +1,8 @@
-import { useEffect, useState } from 'react';
 import Navbar from './Navbar';
 import Bloglist from './Bloglist';
-
+import useFetch from './useFetch'
 const HomePage = () => {
-
-  const [blogs,setBlogs]= useState(null)
-  const[isloading,setLoding]=useState(true)
-  const[error,setError] = useState(null)
- 
- 
-
-  useEffect(() => {
-    setTimeout(() => {
-      fetch('http://localhost:8000/blogss')
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-
-          }
-          else{
-          throw Error("unable to fetch")
-          }
-        })
-        .then((data) => {
-          setBlogs(data);
-          setLoding(false);
-        })
-        .catch(err =>{
-          setError(err.message)
-        })
-    }, 1000);
-  }, []);
+const {data:blogs,isloading,error} = useFetch("http://localhost:8000/blogs")
   return ( 
     <div >
        <Navbar/>
@@ -41,7 +13,6 @@ const HomePage = () => {
       {error&&<div className='text-xs text-red-600'>{error}</div>}
       {isloading && <div >Loading...</div>}
     {blogs&&  <Bloglist blogs={blogs} title={"all blogs"} />}
-     {/* <Bloglist blogs={blogs.filter((value) =>value.name === "adi")} title={"marioblogs"}  handleDelte={handleDelte}/> */}
 
 
       </div>
