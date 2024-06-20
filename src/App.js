@@ -4,11 +4,13 @@ import Create from "./Create";
 import HomePage from "./Homepage";
 import Navbar from './Navbar';
 
+
 import {
   BrowserRouter as Router,
   Route,
   Switch
 } from "react-router-dom/cjs/react-router-dom.min";
+import Notfound from "./NotFound";
 
 function App() {
   return (
@@ -24,6 +26,9 @@ function App() {
           </Route>
           <Route path="/blog/:id">
             <BlogDetails />
+          </Route>
+          <Route path="*">
+            <Notfound />
           </Route>
         
         </Switch>
