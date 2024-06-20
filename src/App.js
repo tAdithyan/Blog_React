@@ -1,13 +1,34 @@
-import './App.css';
-import HomePage from './Homepage';
+import "./App.css";
+import BlogDetails from "./BlogDetails";
+import Create from "./Create";
+import HomePage from "./Homepage";
+import Navbar from './Navbar';
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from "react-router-dom/cjs/react-router-dom.min";
 
 function App() {
-  
   return (
-    <div >
-    <HomePage/>
-
-    </div>
+    <Router>
+      <Navbar/>
+      <div>
+        <Switch>
+          <Route exact  path="/">
+            <HomePage />
+          </Route>
+          <Route path="/CreateBlog">
+            <Create />
+          </Route>
+          <Route path="/blog/:id">
+            <BlogDetails />
+          </Route>
+        
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
