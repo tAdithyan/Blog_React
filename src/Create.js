@@ -3,12 +3,36 @@ import { useState } from "react";
 const Create = () => {
   const[title,settitle]=useState('');
   const[Author,setAuthor]=useState('')
-  const[body,setbody]=useState('')
+  const[body,setbody]=useState('');
+  const[pending,setPending]=useState(false)
    
   const handleSubmit =(e) =>{
     e.preventDefault();
     const blog ={title,Author,body}
-    console.log(blog);
+    setPending(true)
+    setTimeout(() => {
+      fetch("http://localhost:5000/blogs", {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(blog),
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(' response was not get');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log("Blog added:", data);
+          setPending(false);
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          setPending(false);
+        });
+    }, 2000);
+ 
+
 
   }
   return ( 
@@ -22,7 +46,8 @@ const Create = () => {
         <label htmlFor="blogtitle" className="text-red-400 italic">Enter Title of the blog:</label>
         <textarea className="border border-red-400 rounded-xl p-2 m-2" required value={body} onChange={(e)=>setbody(e.target.value)}></textarea>
    <div className=" justify-center flex">
-   <button className="border border-red-400 rounded-xl w-16 p-2 hover:text-red-800 bg-red-400 text-white">Create</button>
+  { !pending? <button className="border border-red-400 rounded-xl w-16 p-2 hover:text-red-800 bg-red-400 text-white">Create</button>:<button className="border border-red-400 rounded-xl w-32 p-2 hover:text-red-800 bg-red-400 text-white" disabled>Creating...!</button>}
+
 
    </div>
 
